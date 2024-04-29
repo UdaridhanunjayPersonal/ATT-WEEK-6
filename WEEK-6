@@ -1,0 +1,43 @@
+
+import java.util.Iterator;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+public class WEEK6 {
+
+	public static void main(String[] args)throws InterruptedException {
+		// TODO Auto-generated method stub
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.ajio.com/");
+		Thread.sleep(2000);
+		WebElement ajioLink = driver.findElement(By.xpath("//span[normalize-space()='Sign In / Join AJIO']"));
+		ajioLink.click();
+		Thread.sleep(2000);
+		WebElement facebookbtn = driver.findElement(By.xpath("//span[normalize-space()='Facebook']"));
+		facebookbtn.click();
+		Thread.sleep(2000);
+		Set<String> parentWindow = driver.getWindowHandles();
+		Iterator iterator = parentWindow.iterator();
+	    while (iterator.hasNext()) {
+			String childWindow = (String) iterator.next();
+			if (!parentWindow.equals(childWindow)) {
+				driver.switchTo().window(childWindow);
+			}
+		}
+	    WebElement emailOrMobileNo = driver.findElement(By.xpath("//input[@id='email']"));
+	    emailOrMobileNo.sendKeys("23R05A6619@gmail.com");
+	    WebElement pwd=driver.findElement(By.xpath("//input[@id='pass']"));
+	    pwd.sendKeys("8074247911");
+	   
+	    
+	    WebElement loginBtn = driver.findElement(By.xpath("/html/body/div/div[2]/div[1]/form/div/div[4]/label[2]/input"));
+	    loginBtn.click();
+		}
+
+
+	}
+
